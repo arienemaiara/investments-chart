@@ -8,8 +8,6 @@ import {
   CartesianGrid,
   Tooltip
 } from 'recharts'
-import Select from 'react-select'
-import { FiCalendar } from 'react-icons/fi'
 
 import api from '../../services/api'
 
@@ -23,16 +21,15 @@ import { sortArrayBy, getMinValue } from '../../utils/helpers'
 
 import { Wrapper, TooltipContent } from './styles'
 
+import Header from '../../components/Header'
+// eslint-disable-next-line no-unused-vars
+import Filter, { ChartFilter } from '../../components/Filter'
+
 import Colors from '../../constants/colors'
 
 type ChartItem = {
   timestamp: number
   valor: number
-}
-
-type ChartFilter = {
-  label: string
-  value: number
 }
 
 const Chart: React.FC = () => {
@@ -43,14 +40,6 @@ const Chart: React.FC = () => {
     label: 'Desde o início',
     value: 0
   })
-
-  const filterOptions: ChartFilter[] = [
-    { label: 'Desde o início', value: 0 },
-    { label: 'Último mês', value: 30 },
-    { label: '3 meses', value: 90 },
-    { label: '1 ano', value: 365 },
-    { label: '2 anos', value: 730 }
-  ]
 
   useEffect(() => {
     getChartData()
@@ -132,10 +121,10 @@ const Chart: React.FC = () => {
     return (
       <TooltipContent>
         {payload &&
-          payload.map((item: any) => {
+          payload.map((item: any, index: number) => {
             const itemValue: ChartItem = item.payload
             return (
-              <>
+              <div key={index}>
                 <p>
                   <span>Data: </span> {timestampToDate(itemValue.timestamp)}
                 </p>
@@ -143,7 +132,7 @@ const Chart: React.FC = () => {
                   <span>Valor: </span>
                   {currencyFormatter(itemValue.valor)}
                 </p>
-              </>
+              </div>
             )
           })}
       </TooltipContent>
@@ -193,21 +182,9 @@ const Chart: React.FC = () => {
 
   return (
     <Wrapper>
-      <header>
-        <h1>Investments Chart</h1>
-      </header>
+      <Header />
       <main>
-        <section className="filter-container">
-          <FiCalendar size={26} />
-          <p>Período</p>
-          <Select
-            options={filterOptions}
-            value={chartFilter}
-            onChange={handleFilterChange}
-            className="filter-select"
-            classNamePrefix="filter-select"
-          />
-        </section>
+        <Filter chartFilter={chartFilter} onFilterChange={handleFilterChange} />
         <section className="chart-area">{renderChart()}</section>
       </main>
     </Wrapper>
