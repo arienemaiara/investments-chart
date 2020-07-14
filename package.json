@@ -15,6 +15,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "react-select": "^3.1.0",
     "recharts": "^1.8.5",
     "styled-components": "^5.1.1",
     "typescript": "~3.7.2"
@@ -44,6 +45,7 @@
     "@babel/core": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "@types/axios": "^0.14.0",
+    "@types/react-select": "^3.0.14",
     "@types/recharts": "^1.8.14",
     "@types/styled-components": "^5.1.1",
     "@typescript-eslint/eslint-plugin": "^3.6.1",
