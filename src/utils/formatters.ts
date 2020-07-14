@@ -1,6 +1,6 @@
 /**
  * Convert number in pt-BR currency
- * @param value Currency value
+ * @param value Decimal value to be converted
  */
 export const currencyFormatter = (value: number): string => {
   return new Intl.NumberFormat('pt-BR', {
