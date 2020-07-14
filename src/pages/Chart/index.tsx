@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
+import {
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip
+} from 'recharts'
 import Select from 'react-select'
+import { FiCalendar } from 'react-icons/fi'
 
 import api from '../../services/api'
 
@@ -102,7 +111,6 @@ const Chart: React.FC = () => {
   }
 
   const handleFilterChange = (data: any) => {
-    console.log(data)
     setChartFilter(data)
   }
 
@@ -131,45 +139,61 @@ const Chart: React.FC = () => {
     )
   }
 
+  const renderChart = () => {
+    if (chartScreenItems?.length === 0) {
+      return <p>Nenhum dado encontrado para o período.</p>
+    }
+
+    return (
+      <ResponsiveContainer width="100%" height="100%">
+        <AreaChart
+          data={chartScreenItems}
+          stackOffset="expand"
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+        >
+          <XAxis
+            dataKey="timestamp"
+            tickFormatter={timestampToMonthYear}
+            interval="preserveStartEnd"
+          />
+          <YAxis
+            dataKey="valor"
+            tickFormatter={decimalFormatter}
+            orientation="right"
+          />
+          <CartesianGrid stroke="#eee" />
+          <Tooltip content={renderTooltipContent} />
+          <Area
+            type="monotone"
+            dataKey="valor"
+            stroke={Colors.chart}
+            fill={Colors.chart}
+            strokeWidth={2}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    )
+  }
+
   return (
     <Wrapper>
-      <h1>Investments Chart</h1>
-      <section>
-        <Select
-          options={filterOptions}
-          defaultValue={filterOptions[0]}
-          onChange={handleFilterChange}
-        />
-        <div>
-          <p>
-            Você está vendo o período{' '}
-            <strong>{chartFilter?.label || 'Desde o início'}</strong>
-          </p>
-        </div>
-      </section>
-      <AreaChart
-        width={900}
-        height={400}
-        data={chartScreenItems}
-        stackOffset="expand"
-        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-      >
-        <XAxis dataKey="timestamp" tickFormatter={timestampToMonthYear} />
-        <YAxis
-          dataKey="valor"
-          tickFormatter={decimalFormatter}
-          orientation="right"
-        />
-        <CartesianGrid stroke="#eee" />
-        <Tooltip content={renderTooltipContent} />
-        <Area
-          type="monotone"
-          dataKey="valor"
-          stroke={Colors.primary}
-          fill={Colors.primary}
-          strokeWidth={2}
-        />
-      </AreaChart>
+      <header>
+        <h1>Investments Chart</h1>
+      </header>
+      <main>
+        <section className="filter-container">
+          <FiCalendar size={26} />
+          <p>Período</p>
+          <Select
+            options={filterOptions}
+            defaultValue={filterOptions[0]}
+            onChange={handleFilterChange}
+            className="filter-select"
+            classNamePrefix="filter-select"
+          />
+        </section>
+        <section className="chart-area">{renderChart()}</section>
+      </main>
     </Wrapper>
   )
 }

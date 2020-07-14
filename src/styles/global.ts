@@ -13,8 +13,9 @@ const GlobalStyles = createGlobalStyle`
     background: ${Colors.background}
   }
   body, input, button {
-    font-size: 14px;
-    font-family: --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    font-family: 'Nunito', sans-serif;
+    color: ${Colors.defaultText}
   }
 `
 
