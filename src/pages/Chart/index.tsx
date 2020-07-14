@@ -36,6 +36,7 @@ type ChartFilter = {
 }
 
 const Chart: React.FC = () => {
+  const [loading, setLoading] = useState(true)
   const [chartItems, setChartItems] = useState<ChartItem[]>()
   const [chartScreenItems, setChartScreenItems] = useState<ChartItem[]>()
   const [chartFilter, setChartFilter] = useState<ChartFilter>({
@@ -53,36 +54,29 @@ const Chart: React.FC = () => {
 
   useEffect(() => {
     getChartData()
+
+    //Check if there is a filter already applied
+    let savedFilter = localStorage.getItem('@chart/filter')
+    if (savedFilter) {
+      let savedFilterObj = JSON.parse(savedFilter)
+      setChartFilter(savedFilterObj)
+    }
   }, [])
 
   useEffect(() => {
-    const applyFilters = (): void => {
-      //Apply new filters to chart
-      const daysToFilter = chartFilter.value
-      if (daysToFilter > 0) {
-        const initialDate = new Date() //1579010065000
-        initialDate.setDate(initialDate.getDate() - daysToFilter)
-        let filteredData = chartItems?.filter(
-          (item) => item.timestamp >= Number(initialDate)
-        )
-        setChartScreenItems(filteredData)
-      } else {
-        setChartScreenItems(chartItems)
-      }
-    }
+    applyFilters(chartFilter)
+  }, [chartFilter, chartItems])
 
-    applyFilters()
-  }, [chartFilter])
-
-  const getChartData = async () => {
+  const getChartData = () => {
     api
       .get('/')
       .then((response) => {
         formatChartData(response.data)
       })
       .catch((error) => {
-        console.error(error)
+        console.log(error)
       })
+      .finally(() => setLoading(false))
   }
 
   const formatChartData = (chartData: any): void => {
@@ -110,7 +104,25 @@ const Chart: React.FC = () => {
     setChartScreenItems(chartValues)
   }
 
+  const applyFilters = (chartFilter: ChartFilter): void => {
+    setLoading(true)
+    //Apply new filters to chart
+    const daysToFilter = chartFilter.value
+    if (daysToFilter > 0) {
+      const initialDate = new Date(1579010065000) //1579010065000
+      initialDate.setDate(initialDate.getDate() - daysToFilter)
+      let filteredData = chartItems?.filter(
+        (item) => item.timestamp >= Number(initialDate)
+      )
+      setChartScreenItems(filteredData)
+    } else {
+      setChartScreenItems(chartItems)
+    }
+    setLoading(false)
+  }
+
   const handleFilterChange = (data: any) => {
+    localStorage.setItem('@chart/filter', JSON.stringify(data))
     setChartFilter(data)
   }
 
@@ -120,19 +132,18 @@ const Chart: React.FC = () => {
     return (
       <TooltipContent>
         {payload &&
-          payload.map((item: any, index: number) => {
+          payload.map((item: any) => {
             const itemValue: ChartItem = item.payload
             return (
-              <div key={index}>
-                <h3>Patrimônio</h3>
+              <>
                 <p>
                   <span>Data: </span> {timestampToDate(itemValue.timestamp)}
                 </p>
                 <p>
-                  <span>Valor:</span>
+                  <span>Valor: </span>
                   {currencyFormatter(itemValue.valor)}
                 </p>
-              </div>
+              </>
             )
           })}
       </TooltipContent>
@@ -140,6 +151,10 @@ const Chart: React.FC = () => {
   }
 
   const renderChart = () => {
+    if (loading) {
+      return <p>Carregando informações...</p>
+    }
+
     if (chartScreenItems?.length === 0) {
       return <p>Nenhum dado encontrado para o período.</p>
     }
@@ -155,6 +170,7 @@ const Chart: React.FC = () => {
             dataKey="timestamp"
             tickFormatter={timestampToMonthYear}
             interval="preserveStartEnd"
+            minTickGap={90}
           />
           <YAxis
             dataKey="valor"
@@ -186,7 +202,7 @@ const Chart: React.FC = () => {
           <p>Período</p>
           <Select
             options={filterOptions}
-            defaultValue={filterOptions[0]}
+            value={chartFilter}
             onChange={handleFilterChange}
             className="filter-select"
             classNamePrefix="filter-select"

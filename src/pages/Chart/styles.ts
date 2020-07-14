@@ -80,5 +80,17 @@ export const Wrapper = styled.main`
 `
 
 export const TooltipContent = styled.div`
-  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+
+  p {
+    font-size: 16px;
+    margin: 2px 0;
+
+    span {
+      font-weight: 700;
+    }
+  }
 `
