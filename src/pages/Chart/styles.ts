@@ -8,3 +8,7 @@ export const Wrapper = styled.main`
   height: 100%;
   width: 100%;
 `
+
+export const TooltipContent = styled.div`
+  background: #fff;
+`

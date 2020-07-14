@@ -8,7 +8,7 @@ type Colors = {
 const colors: Colors = {
   background: '#F7F5F9',
   defaultText: '#1A051D',
-  primary: '#3F3356',
+  primary: '#a53ab7',
   secondary: '#D0C9D6'
 }
 

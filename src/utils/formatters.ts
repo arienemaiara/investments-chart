@@ -18,6 +18,27 @@ export const timestampToDate = (timestamp: number): string => {
 }
 
 /**
+ * Convert timestamp in pt-BR day/month/year string date
+ * @param timestamp Date in milliseconds
+ */
+export const timestampToMonthYear = (timestamp: number): string => {
+  const date = new Date(timestamp)
+  const dateTimeFormat = new Intl.DateTimeFormat('pt-BR', {
+    day: 'numeric',
+    year: 'numeric',
+    month: 'short'
+  })
+  const [
+    { value: day },
+    ,
+    { value: month },
+    ,
+    { value: year }
+  ] = dateTimeFormat.formatToParts(date)
+  return `${day} ${month.toUpperCase()} ${year}`
+}
+
+/**
  * Convert number from thousands to K and from millions to M
  * @param number Value to be converted
  */
