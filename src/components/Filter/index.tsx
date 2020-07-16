@@ -1,5 +1,4 @@
 import React from 'react'
-import Select from 'react-select'
 import { FiCalendar } from 'react-icons/fi'
 
 import { Container } from './styles'
@@ -9,12 +8,12 @@ export type ChartFilter = {
   value: number
 }
 
-interface Props {
-  onFilterChange: Function
-  chartFilter: ChartFilter
+export interface FilterProps {
+  onFilterChange: (value: string) => void
+  chartFilter: number
 }
 
-const Filter: React.FC<Props> = ({ chartFilter, onFilterChange }) => {
+const Filter: React.FC<FilterProps> = ({ chartFilter, onFilterChange }) => {
   const filterOptions: ChartFilter[] = [
     { label: 'Desde o início', value: 0 },
     { label: 'Último mês', value: 30 },
@@ -27,13 +26,26 @@ const Filter: React.FC<Props> = ({ chartFilter, onFilterChange }) => {
     <Container>
       <FiCalendar size={26} />
       <p>Período</p>
-      <Select
+      {/* <Select
         options={filterOptions}
         value={chartFilter}
-        onChange={(data) => onFilterChange(data)}
+        onChange={(data: any) => onFilterChange(data)}
         className="filter-select"
         classNamePrefix="filter-select"
-      />
+      /> */}
+      <select
+        value={chartFilter}
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+          onFilterChange(e.target.value)
+        }
+        data-testid="filter-options"
+      >
+        {filterOptions.map((filter) => (
+          <option value={filter.value} key={filter.value}>
+            {filter.label}
+          </option>
+        ))}
+      </select>
     </Container>
   )
 }

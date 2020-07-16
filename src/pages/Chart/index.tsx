@@ -36,18 +36,15 @@ const Chart: React.FC = () => {
   const [loading, setLoading] = useState(true)
   const [chartItems, setChartItems] = useState<ChartItem[]>()
   const [chartScreenItems, setChartScreenItems] = useState<ChartItem[]>()
-  const [chartFilter, setChartFilter] = useState<ChartFilter>({
-    label: 'Desde o início',
-    value: 0
-  })
+  const [chartFilter, setChartFilter] = useState<number>(0)
 
   useEffect(() => {
     getChartData()
 
     //Check if there is a filter already applied
-    let savedFilter = localStorage.getItem('@chart/filter')
+    const savedFilter = localStorage.getItem('@chart/filter')
     if (savedFilter) {
-      let savedFilterObj = JSON.parse(savedFilter)
+      const savedFilterObj = JSON.parse(savedFilter)
       setChartFilter(savedFilterObj)
     }
   }, [])
@@ -93,14 +90,13 @@ const Chart: React.FC = () => {
     setChartScreenItems(chartValues)
   }
 
-  const applyFilters = (chartFilter: ChartFilter): void => {
+  const applyFilters = (daysToFilter: number): void => {
     setLoading(true)
     //Apply new filters to chart
-    const daysToFilter = chartFilter.value
     if (daysToFilter > 0) {
-      const initialDate = new Date(1579010065000) //1579010065000
+      const initialDate = new Date() //1579010065000
       initialDate.setDate(initialDate.getDate() - daysToFilter)
-      let filteredData = chartItems?.filter(
+      const filteredData = chartItems?.filter(
         (item) => item.timestamp >= Number(initialDate)
       )
       setChartScreenItems(filteredData)
@@ -110,9 +106,10 @@ const Chart: React.FC = () => {
     setLoading(false)
   }
 
-  const handleFilterChange = (data: any) => {
-    localStorage.setItem('@chart/filter', JSON.stringify(data))
-    setChartFilter(data)
+  const handleFilterChange = (data: string) => {
+    console.log(data)
+    localStorage.setItem('@chart/filter', data)
+    setChartFilter(Number(data))
   }
 
   const renderTooltipContent = (data: any) => {
