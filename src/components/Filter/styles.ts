@@ -21,17 +21,8 @@ export const Container = styled.div`
   .filter-select {
     width: 200px;
     font-size: 16px;
-
-    .filter-select__option:hover {
-      background: ${Colors.secondary};
-    }
-
-    .filter-select__option--is-selected {
-      background: ${Colors.primary};
-
-      &:hover {
-        background: ${Colors.primary};
-      }
-    }
+    padding: 8px 10px;
+    border: 1px solid ${Colors.secondary};
+    border-radius: 5px;
   }
 `

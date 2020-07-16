@@ -26,18 +26,12 @@ const Filter: React.FC<FilterProps> = ({ chartFilter, onFilterChange }) => {
     <Container>
       <FiCalendar size={26} />
       <p>Período</p>
-      {/* <Select
-        options={filterOptions}
-        value={chartFilter}
-        onChange={(data: any) => onFilterChange(data)}
-        className="filter-select"
-        classNamePrefix="filter-select"
-      /> */}
       <select
         value={chartFilter}
         onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
           onFilterChange(e.target.value)
         }
+        className="filter-select"
         data-testid="filter-options"
       >
         {filterOptions.map((filter) => (
