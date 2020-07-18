@@ -37,6 +37,7 @@ const Chart: React.FC = () => {
   const [chartItems, setChartItems] = useState<ChartItem[]>()
   const [chartScreenItems, setChartScreenItems] = useState<ChartItem[]>()
   const [chartFilter, setChartFilter] = useState<number>(0)
+  const [chatError, setChartError] = useState(false)
 
   useEffect(() => {
     getChartData()
@@ -50,6 +51,7 @@ const Chart: React.FC = () => {
   }, [])
 
   useEffect(() => {
+    setChartError(false)
     applyFilters(chartFilter)
   }, [chartFilter, chartItems])
 
@@ -61,6 +63,7 @@ const Chart: React.FC = () => {
       })
       .catch((error) => {
         console.log(error)
+        setChartError(true)
       })
       .finally(() => setLoading(false))
   }
@@ -107,7 +110,6 @@ const Chart: React.FC = () => {
   }
 
   const handleFilterChange = (data: string) => {
-    console.log(data)
     localStorage.setItem('@chart/filter', data)
     setChartFilter(Number(data))
   }
@@ -141,7 +143,11 @@ const Chart: React.FC = () => {
       return <p>Carregando informações...</p>
     }
 
-    if (chartScreenItems?.length === 0) {
+    if (chatError) {
+      return <p>Erro ao buscar os dados do gráfico. Tente novamente.</p>
+    }
+
+    if (!chartScreenItems || chartScreenItems?.length === 0) {
       return <p>Nenhum dado encontrado para o período.</p>
     }
 
@@ -182,7 +188,9 @@ const Chart: React.FC = () => {
       <Header />
       <main>
         <Filter chartFilter={chartFilter} onFilterChange={handleFilterChange} />
-        <section className="chart-area">{renderChart()}</section>
+        <section className="chart-area" data-testid="chart-area">
+          {renderChart()}
+        </section>
       </main>
     </Wrapper>
   )
