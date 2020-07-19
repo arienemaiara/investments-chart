@@ -1,23 +1,16 @@
 import styled from 'styled-components'
 
-//import Colors from '../../constants/colors'
-
-export const Wrapper = styled.main`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+export const Wrapper = styled.div`
   height: 100%;
   width: 100%;
 
   main {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     height: 100%;
     width: 100%;
-    max-width: 1200px;
-    padding: 40px;
+    padding: 20px;
   }
 
   .chart-area {

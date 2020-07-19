@@ -8,15 +8,15 @@ Gráfico onde o usuário pode acompanhar o rendimento de seus investimentos no p
 ## Tecnologias utilizadas
 
 Desenvolvimento
-[React](https://pt-br.reactjs.org/)
-[Typescript](https://www.typescriptlang.org/)
+- [React](https://pt-br.reactjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
 
 Testes
-[Jest](https://jestjs.io/)
-[React Testing Library](https://testing-library.com/)
+- [Jest](https://jestjs.io/)
+- [React Testing Library](https://testing-library.com/)
 
 Hospedagem
-[Netlify](https://www.netlify.com/)
+- [Netlify](https://www.netlify.com/)
 
 ## Executar em desenvolvimento
 

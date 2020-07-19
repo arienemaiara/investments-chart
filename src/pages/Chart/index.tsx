@@ -154,7 +154,7 @@ const Chart: React.FC = () => {
     return (
       <ResponsiveContainer
         width="100%"
-        height="100%"
+        height="80%"
         minHeight={300}
         minWidth={300}
       >
