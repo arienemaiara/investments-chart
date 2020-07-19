@@ -1,10 +1,9 @@
 # Investments Chart
-> Aplicação de acompanhamento dos rendimentos
 
-![coverage](https://img.shields.io/codecov/c/github/arienemaiara/investments-chart)
-[![Build Status][travis-image]][travis-url]
+![coverage](https://img.shields.io/codecov/c/github/arienemaiara/investments-chart) ![build](https://img.shields.io/netlify/985cbbb3-485d-4ff2-9318-06dbb1e662d9)
 
-Gráfico onde o usuário pode acompanhar o rendimento de seus investimentos no período em que ele selecionar.
+Gráfico onde o usuário pode acompanhar o rendimento de seus investimentos no período em que ele selecionar (Desde o início, Último mês, 3 meses, 1 ano ou 2 anos)
+[Acessar a aplicacão](https://investments-chart.netlify.app/)
 
 ## Tecnologias utilizadas
 
@@ -51,6 +50,16 @@ npm run test
 ou
 ```
 yarn test
+```
+
+## Build do projeto
+Executar o comando
+```
+npm run build
+```
+ou
+```
+yarn build
 ```
 
 ## Contribuir para o projeto
