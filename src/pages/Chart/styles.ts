@@ -10,18 +10,20 @@ export const Wrapper = styled.div`
     justify-content: flex-start;
     height: 100%;
     width: 100%;
+    max-width: 1200px;
+    margin: auto;
     padding: 20px;
-  }
 
-  .chart-area {
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
+    .chart-area {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: center;
 
-    p {
-      font-size: 16px;
-      color: #444;
+      p {
+        font-size: 16px;
+        color: #444;
+      }
     }
   }
 `
