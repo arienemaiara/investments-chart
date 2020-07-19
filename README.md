@@ -25,6 +25,11 @@ Hospedagem
 git clone https://github.com/arienemaiara/investments-chart.git
 ```
 
+#### Ir até a pasta do projeto
+```
+cd investments-chart
+```
+
 #### Instalar as dependências
 ```
 npm install
