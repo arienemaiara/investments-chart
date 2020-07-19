@@ -24,6 +24,10 @@ export const Wrapper = styled.div`
         font-size: 16px;
         color: #444;
       }
+
+      .recharts-responsive-container {
+        margin-right: -40px;
+      }
     }
   }
 `
