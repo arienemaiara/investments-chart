@@ -22,8 +22,8 @@ import { sortArrayBy, getMinValue } from '../../utils/helpers'
 import { Wrapper, TooltipContent } from './styles'
 
 import Header from '../../components/Header'
-// eslint-disable-next-line no-unused-vars
-import Filter, { ChartFilter } from '../../components/Filter'
+
+import Filter from '../../components/Filter'
 
 import Colors from '../../constants/colors'
 
@@ -152,7 +152,12 @@ const Chart: React.FC = () => {
     }
 
     return (
-      <ResponsiveContainer width="100%" height="100%">
+      <ResponsiveContainer
+        width="100%"
+        height="100%"
+        minHeight={300}
+        minWidth={300}
+      >
         <AreaChart
           data={chartScreenItems}
           stackOffset="expand"
