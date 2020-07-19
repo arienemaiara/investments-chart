@@ -44,4 +44,11 @@ describe('<Chart />', () => {
 
     expect(localStorage.setItem).toHaveBeenCalledWith('@chart/filter', '30')
   })
+
+  it('should get initial filter value from localStorage', async () => {
+    render(<Chart />)
+    await waitFor(() =>
+      expect(localStorage.getItem).toHaveBeenLastCalledWith('@chart/filter')
+    )
+  })
 })
