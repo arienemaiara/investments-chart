@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI= react-scripts build",
     "eject": "react-scripts eject",
     "test": "jest --env=jest-environment-jsdom-sixteen",
     "test:watch": "jest  --env=jest-environment-jsdom-sixteen --watch",
