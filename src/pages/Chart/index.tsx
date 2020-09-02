@@ -158,11 +158,7 @@ const Chart: React.FC = () => {
         minHeight={300}
         minWidth={300}
       >
-        <AreaChart
-          data={chartScreenItems}
-          stackOffset="expand"
-          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-        >
+        <AreaChart data={chartScreenItems} stackOffset="expand">
           <XAxis
             dataKey="timestamp"
             tickFormatter={timestampToMonthYear}
